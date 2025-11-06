@@ -5,6 +5,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Text('Đăng nhập thành công vào Home', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+      ),
+    );
   }
 }

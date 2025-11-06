@@ -55,8 +55,8 @@ class LoginViewmodel extends ChangeNotifier {
   }
 
   // đăng nhập
-  Future<void> login() async {
-    if (!validate()) return;
+  Future<bool> login() async {
+    if (!validate()) return false;
 
     _isLoading = true;
     notifyListeners();
@@ -64,15 +64,13 @@ class LoginViewmodel extends ChangeNotifier {
     try {
       await _authRepositories.login(_email, _password);
       _errorMessage = null;
-      _isLoading = false;
-      notifyListeners();
-
+      return true;
     } catch (e) {
       _errorMessage = 'Đăng nhập thất bại: $e';
+      return false;
     } finally {
       _isLoading = false;
       notifyListeners();
-      
     }
-   }
   }
+}

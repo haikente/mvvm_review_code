@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Splash Screen', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+        child: Text('MVVM Review', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
       ),
     );
   }
