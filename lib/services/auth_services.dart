@@ -13,7 +13,6 @@ class AuthServices {
         email: email,
         password: password,
       );
-      // Lấy thông tin người dùng từ Firebase
       User? user = userCredential.user;
       if (user != null) {
         return UserModel(
@@ -23,10 +22,15 @@ class AuthServices {
           password: password,
         );
       }
+      return null;
+    } on FirebaseAuthException catch (e) {
+      // không nuốt lỗi — chuyển tiếp để ViewModel có thể hiển thị thông báo chính xác
+      print('Đăng nhập thất bại: ${e.code} ${e.message}');
+      rethrow;
     } catch (e) {
       print('Đăng nhập thất bại: $e');
+      rethrow;
     }
-    return null;
   }
 
 

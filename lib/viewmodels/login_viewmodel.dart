@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_review/repositories/auth_repositories.dart';
 import 'package:mvvm_review/utils/validators.dart';
@@ -8,13 +9,13 @@ import 'package:mvvm_review/view/home_view.dart';
 class LoginViewmodel extends ChangeNotifier {
 
   
-  final AuthRepositories _authRepositories = AuthRepositories();
+  final AuthRepositories _authRepositories;
   String _email = '';
   String _password = '';
   bool _isLoading = false;
   String? _errorMessage;
 
-  LoginViewmodel(AuthRepositories read);
+  LoginViewmodel(this._authRepositories);
 
   String get email => _email;
   String get password => _password;
@@ -62,11 +63,22 @@ class LoginViewmodel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _authRepositories.login(_email, _password);
+      // nhận kết quả trả về từ repository
+      final user = await _authRepositories.login(_email, _password);
+
+      // nếu repository trả về null => đăng nhập thất bại
+      if (user == null) {
+        _errorMessage = 'Email hoặc mật khẩu không đúng.';
+        return false;
+      }
+
       _errorMessage = null;
       return true;
+    } on FirebaseAuthException catch (e) {
+      _errorMessage = e.message ?? 'Đăng nhập thất bại.';
+      return false;
     } catch (e) {
-      _errorMessage = 'Đăng nhập thất bại: $e';
+      _errorMessage = 'Đăng nhập thất bại: ${e.toString()}';
       return false;
     } finally {
       _isLoading = false;

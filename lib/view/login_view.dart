@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm_review/view/home_view.dart';
 import 'package:mvvm_review/viewmodels/login_viewmodel.dart';
@@ -59,15 +60,23 @@ class LoginView extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () async{
                         final success = await viewModel.login();
-                        if(success){
-
-                          Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (context) => const HomeView()));
-                         
-                        } else {
-                          // ignore: use_build_context_synchronously
+                        try {
+                          final user = FirebaseAuth.instance.currentUser;
+                          if (success && user != null) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomeView(),
+                              ),
+                            );
+                          }else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(viewModel.errorMessage ?? 'Đăng nhập thất bại! Vui lòng kiểm tra lại.')),
+                            );
+                          }
+                        } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Đăng nhập thất bại! Vui lòng kiểm tra lại.')),
+                            SnackBar(content: Text('Lỗi khi đăng nhập: ${e.toString()}')),
                           );
                         }
                       },
