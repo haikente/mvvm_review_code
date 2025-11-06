@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "293645902181",
+    "project_id": "mvvnreview",
+    "storage_bucket": "mvvnreview.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293645902181:android:45d5df18b7eb567e48018c",
+        "android_client_info": {
+          "package_name": "com.example.mvvm_review"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuquDReypSdZTL00ZwYq4W4P7lE6QWs6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
