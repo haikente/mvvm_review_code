@@ -38,8 +38,12 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+        colorScheme: const ColorScheme.dark(
+           primary: Color(0xFF13A4EC),
+          background: Color(0xFF101C22),
+        )
+        
       ),
       home: const Splash(),
     );
