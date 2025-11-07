@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mvvm_review/models/user_model.dart';
 import 'package:mvvm_review/services/auth_services.dart';
 
@@ -24,14 +23,10 @@ class AuthRepositories {
     return null;
   }
 
-  // đăng xuất user
-  Future<void> logout() {
-    return _authServices.logout();
-  }
-
-  Future<UserModel?> register(String name, String email, String password) async {
+  // đăng ký user
+  Future<UserModel?> registerUser(String name ,String email, String password) async {
     try {
-      final user = await _authServices.register(name, email, password);
+      final user = await _authServices.register(name ,email, password);
 
       if (user != null) {
         return UserModel(
@@ -46,6 +41,13 @@ class AuthRepositories {
     }
     return null;
   }
+
+
+  // đăng xuất user
+  Future<void> logout() {
+    return _authServices.logout();
+  }
+
 
   // lắng nghe thay đổi trạng thái xác thực người dùng
   Stream<UserModel?> get userChanges {
